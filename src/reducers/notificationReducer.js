@@ -1,8 +1,15 @@
+import { getTimeOutId, saveTimeOutId } from "../services/Anecdotes";
+
 const setNotification = (value, timeout) => {
   return async dispatch => {
-    await setTimeout(() => {
+    const prevTimeOutId = await getTimeOutId();
+    if(prevTimeOutId.id !== 0) {
+      clearTimeout(prevTimeOutId.id);
+    }
+    const time = await setTimeout(() => {
       dispatch(disableNotification());
     },timeout*1000);
+    await saveTimeOutId(time);
     dispatch({
       type: 'SET_NOTIFICATION',
       data: value
@@ -11,9 +18,12 @@ const setNotification = (value, timeout) => {
 }
 
 const disableNotification = () => {
-  return {
-    type: 'SET_NOTIFICATION',
-    data: ''
+  return async dispatch => {
+    await saveTimeOutId(0);
+    dispatch({
+      type: 'SET_NOTIFICATION',
+      data: ''
+    })
   }
 }
 

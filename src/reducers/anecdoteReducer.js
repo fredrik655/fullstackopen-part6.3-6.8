@@ -13,7 +13,6 @@ const vote = (data) => {
 }
 
 const addAnecdote = value => {
-  console.log(value);
   return async dispatch => {
     const data = {
       content: value,
@@ -29,7 +28,6 @@ const addAnecdote = value => {
 }
 
 const initializeAnecdotes = () => {
-  console.log('here');
   return async dispatch => {
     const anecdotes = await getAll();
     dispatch({
@@ -47,7 +45,6 @@ const reducer = (state = [], action) => {
       }
       return o;
     });
-    console.log(newState);
     return [...newState];
   }
   else if(action.type === 'ADD') {

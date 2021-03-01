@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const baseUrl = 'http://localhost:3001/anecdotes';
+const timeoutUrl = 'http://localhost:3001/timeouts';
 
 
 const getAll = async () => {
@@ -23,4 +24,15 @@ const changeAnecdote = async data => {
   return response.data;
 }
 
-export {getAll, addAnecdoteDb, changeAnecdote};
+const saveTimeOutId = async id => {
+  const response = await axios.put(timeoutUrl, {id: id})
+  return response.data;
+}
+
+const getTimeOutId = async id => {
+  const response = await axios.get(timeoutUrl);
+  console.log(response.data);
+  return response.data;
+}
+
+export {getAll, addAnecdoteDb, changeAnecdote, saveTimeOutId, getTimeOutId};
