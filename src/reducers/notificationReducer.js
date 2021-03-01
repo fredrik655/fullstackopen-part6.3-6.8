@@ -1,9 +1,12 @@
-
-
-const setNotification = value => {
-  return {
-    type: 'SET_NOTIFICATION',
-    data: `you voted '${value}'`
+const setNotification = (value, timeout) => {
+  return async dispatch => {
+    await setTimeout(() => {
+      dispatch(disableNotification());
+    },timeout*1000);
+    dispatch({
+      type: 'SET_NOTIFICATION',
+      data: value
+    });
   }
 }
 
